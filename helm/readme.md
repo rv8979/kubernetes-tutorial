@@ -1,10 +1,13 @@
 
 # install helm
+```bash
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod +x get_helm.sh
 ./get_helm.sh
+```
 
 # basic commands
+```bash
 helm repo list
 helm repo add <name> <url>
 heml repo remove <name>
@@ -19,3 +22,4 @@ helm install mychart stable/tomcat --set service.type=NodePort
 helm get manifest mychart
 helm status <chart_name>
 helm pull stable/tomcat --untar
+```
