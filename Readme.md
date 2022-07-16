@@ -49,3 +49,4 @@ kubeadm join 172.31.6.165:6443 --token kl9fhu.co2n90v3rxtqllrs --discovery-token
 ```bash
 kubectl get nodes
 ```
+https://kubernetes.io/docs/tasks/tools/
