@@ -1,3 +1,4 @@
+```bash
 sudo -s
 apt update
 apt install -y curl wget apt-transport-https
@@ -14,9 +15,10 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 kubectl version -o yaml
 minikube start --driver=none
+```
 
-
-
-===============
+#### kubectl bash-completion
+```bash
 apt-get install bash-completion
-echo 'source <(kubectl completion bash)' >>~/.bashrc
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
+```
