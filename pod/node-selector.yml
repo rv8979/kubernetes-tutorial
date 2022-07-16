@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node-selector
+  annotations:
+    description: test for env var
+  
+spec:
+  containers:
+    - name: c01
+      image: ubuntu
+      command: ["printenv"]
+      env:
+        - name: MYNAME
+          value: RAGHAV
+        - name: AGE
+          value: '25'
+  nodeSelector:
+    disktype: ssd
+  restartPolicy: Never
+
+# 1) add label on  node
+# kubectl label nodes nodename disktype=ssd

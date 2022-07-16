@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: label-pods
+  labels:
+    name: rv
+    company: seclogic
+    version: '1'
+  annotations:
+    description: this is my 1st pod
+spec:
+  containers:
+    - name: c02
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo Hello-Raghav; sleep 5 ; done"]
+  restartPolicy: Never
+
+# kubectl get pods --show-labels
+# find pods from label
+# kubectl get pods -l env=dev
+# kubectl get pods -l env!=dev
+# delete pods from labels
+# kubectl delete pods -l env=dev

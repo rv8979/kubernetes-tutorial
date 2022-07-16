@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: env-var
+  annotations:
+    description: test for env var
+  
+spec:
+  containers:
+    - name: c01
+      image: ubuntu
+      command: ["printenv"]
+      env:
+        - name: MYNAME
+          value: RAGHAV
+        - name: AGE
+          value: '25'
+  restartPolicy: Never         # Defaults to Always

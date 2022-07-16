@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment # deployment name
+spec:                     # start Replica template
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:             # start pod template
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+# kubectl apply -f simple.yml
+# kubectl get deployments.apps
+# kubectl delete deployments.apps nginx-deployment
+# kubectl describe deployments.apps nginx-deployment
+## scale up and down
+# kubectl scale deployment --replicas=5 nginx-deployment
+## roll-out
+# kubectl rollout status deployment nginx-deployment
+## roll-out history
+# kubectl rollout history deployment nginx-deployment
+## roll-back
+# kubectl rollout undo deployment/nginx-deployment

@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx
+  annotations:
+    description: start nginx server
+spec:
+  containers:
+    - name: nginx
+      image: httpd
+      #command: ["printenv"]
+      ports:
+        - containerPort: 80
+  restartPolicy: Never         # Defaults to Always

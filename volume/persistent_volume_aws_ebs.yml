@@ -1,0 +1,60 @@
+# cloud volume like as aws efs, EBS
+# create volume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-ebs
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  awsElasticBlockStore:
+    volumeID: vol-01234567890
+    fsType: ext4
+
+# kubectl get persistentvolume
+
+---
+# claim volume 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-ebs-claim
+spec:
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+# kubectl get persistentvolumeclaims
+
+---
+# mount volume in pods
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+      - name:  my-volume
+        mountPath: /app
+    ports:
+      - containerPort: 80
+  volumes:
+    - name: my-volume
+      persistentVolumeClaim:
+        claimName: my-ebs-claim

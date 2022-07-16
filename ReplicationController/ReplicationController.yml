@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-replication-controller
+spec:
+  replicas: 2 # Create 2 pods
+  selector:
+    app: nginx  # find app=nginx label on pod and create copy of pods from existing pods if pod<2
+  template:
+    metadata:
+      name: nginx # pod name
+      labels: # pod label
+        app: nginx
+        ENV: DEV
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+# selector and pod lable should be same (app: nginx)
+# kubectl apply -f filename.yml
+# "kubectl get rc" or "kubectl get replicationcontrollers" view replicationcontrollers status
+# kubectl describe rc nginx-replication-controller
+
+# scale up and down
+# kubectl scale --replicas=5 replicationcontroller -l app=nginx
+# kubectl delete replicationcontrollers nginx-replication-controller

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replica-set
+spec:
+  replicas: 2 # Create 2 pods
+  selector:
+    matchExpressions:                             # these must match the labels
+      - {key: app, operator: In, values: [nginx, nginx_v1, nginx3]}
+      - {key: ENV, operator: NotIn, values: [PROD]} # find app=nginx, nginx_v1, nginx3 label on pod and create copy of pods from existing pods if pod<2
+  template:
+    metadata:
+      name: nginx # pod name
+      labels: # pod label
+        app: nginx
+        ENV: DEV
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+# selector and pod lable should be same (app: nginx)
+# kubectl apply -f filename.yml
+# "kubectl get rs" or "kubectl get replicasets.apps" view replicasets.apps status
+# kubectl describe rc nginx-replica-set
+
+# scale up and down
+# kubectl scale --replicas=5 replicaset -l app=nginx
+# kubectl delete replicasets.apps nginx-replica-set

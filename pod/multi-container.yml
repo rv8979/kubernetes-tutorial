@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: multi-containers
+  annotations:
+    description: this is my 1st pod
+  
+spec:
+  containers:
+    - name: c01
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo COntainer 1; sleep 5 ; done"]
+
+    - name: c02
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo container 2; sleep 5 ; done"]
+  restartPolicy: Never         # Defaults to Always

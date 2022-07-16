@@ -1,0 +1,26 @@
+# shared host path inside pods like docker bind mount
+# shared 1 volume with 2 containers inside pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  labels:
+    name: ubuntu
+spec:
+  containers:
+  - name: ubuntu-1
+    image: ubuntu
+    command: ["/bin/bash", "-c", "while true; do echo Hello-Raghav ubuntu 1; sleep 5 ; done"]
+    volumeMounts:
+      - name: xchange
+        mountPath: "/app"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+  volumes:
+    - name: xchange
+      hostPath:
+        path: /tmp      # path of host volume
